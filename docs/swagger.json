@@ -1,0 +1,300 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "https://commits.io",
+        "title": "Swagger Example API",
+        "contact": {},
+        "license": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8000",
+    "basePath": "/",
+    "paths": {
+        "/commits": {
+            "put": {
+                "description": "Create a commit",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "commits"
+                ],
+                "summary": "Create a commit",
+                "operationId": "create-github-commit",
+                "parameters": [
+                    {
+                        "description": "commit",
+                        "name": "commit",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.CommitRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.CommitRequest"
+                        }
+                    }
+                }
+            }
+        },
+        "/repos": {
+            "put": {
+                "description": "Create a GitHub repository",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "repos"
+                ],
+                "summary": "Create a GitHub repository",
+                "operationId": "create-github-repo",
+                "parameters": [
+                    {
+                        "description": "repository",
+                        "name": "repo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.RepoRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.RepoRequest"
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "description": "Get a user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Get a user",
+                "operationId": "get-user",
+                "responses": {
+                    "200": {}
+                }
+            },
+            "put": {
+                "description": "Create a user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Create a user",
+                "operationId": "create-user",
+                "parameters": [
+                    {
+                        "description": "user",
+                        "name": "commit",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.UserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {}
+                }
+            }
+        },
+        "/users/{userId}/commits/{repoId}": {
+            "get": {
+                "description": "Get commits of a user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Get commits of a user",
+                "operationId": "get-commits-of-user",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "user id",
+                        "name": "userId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "repo id",
+                        "name": "repoId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {}
+                }
+            },
+            "put": {
+                "description": "Add commit to a user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Add commit to a user",
+                "operationId": "add-commit-to-user",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "user id",
+                        "name": "userId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "repo id",
+                        "name": "repoId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {}
+                }
+            }
+        },
+        "/users/{userId}/repos": {
+            "put": {
+                "description": "Get repos of a user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Get repos of a user",
+                "operationId": "get-repos-of-user",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "user id",
+                        "name": "userId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {}
+                }
+            }
+        },
+        "/users/{userId}/repos/{repoId}": {
+            "put": {
+                "description": "Add repo to a user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Add repo to a user",
+                "operationId": "add-repo-to-user",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "user id",
+                        "name": "userId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "repo id",
+                        "name": "repoId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {}
+                }
+            }
+        }
+    },
+    "definitions": {
+        "controllers.CommitRequest": {
+            "type": "object",
+            "properties": {
+                "repoId": {
+                    "type": "integer"
+                },
+                "userId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "controllers.RepoRequest": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "owner": {
+                    "type": "string"
+                }
+            }
+        },
+        "controllers.UserRequest": {
+            "type": "object",
+            "properties": {
+                "avatarUrl": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "githubLogin": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

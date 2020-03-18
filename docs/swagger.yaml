@@ -1,0 +1,202 @@
+basePath: /
+definitions:
+  controllers.CommitRequest:
+    properties:
+      repoId:
+        type: integer
+      userId:
+        type: integer
+    type: object
+  controllers.RepoRequest:
+    properties:
+      name:
+        type: string
+      owner:
+        type: string
+    type: object
+  controllers.UserRequest:
+    properties:
+      avatarUrl:
+        type: string
+      email:
+        type: string
+      githubLogin:
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact: {}
+  description: https://commits.io
+  license: {}
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /commits:
+    put:
+      consumes:
+      - application/json
+      description: Create a commit
+      operationId: create-github-commit
+      parameters:
+      - description: commit
+        in: body
+        name: commit
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.CommitRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.CommitRequest'
+      summary: Create a commit
+      tags:
+      - commits
+  /repos:
+    put:
+      consumes:
+      - application/json
+      description: Create a GitHub repository
+      operationId: create-github-repo
+      parameters:
+      - description: repository
+        in: body
+        name: repo
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.RepoRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.RepoRequest'
+      summary: Create a GitHub repository
+      tags:
+      - repos
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: Get a user
+      operationId: get-user
+      produces:
+      - application/json
+      responses:
+        "200": {}
+      summary: Get a user
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: Create a user
+      operationId: create-user
+      parameters:
+      - description: user
+        in: body
+        name: commit
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.UserRequest'
+      produces:
+      - application/json
+      responses:
+        "200": {}
+      summary: Create a user
+      tags:
+      - users
+  /users/{userId}/commits/{repoId}:
+    get:
+      consumes:
+      - application/json
+      description: Get commits of a user
+      operationId: get-commits-of-user
+      parameters:
+      - description: user id
+        in: path
+        name: userId
+        required: true
+        type: integer
+      - description: repo id
+        in: path
+        name: repoId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200": {}
+      summary: Get commits of a user
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: Add commit to a user
+      operationId: add-commit-to-user
+      parameters:
+      - description: user id
+        in: path
+        name: userId
+        required: true
+        type: integer
+      - description: repo id
+        in: path
+        name: repoId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200": {}
+      summary: Add commit to a user
+      tags:
+      - users
+  /users/{userId}/repos:
+    put:
+      consumes:
+      - application/json
+      description: Get repos of a user
+      operationId: get-repos-of-user
+      parameters:
+      - description: user id
+        in: path
+        name: userId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200": {}
+      summary: Get repos of a user
+      tags:
+      - users
+  /users/{userId}/repos/{repoId}:
+    put:
+      consumes:
+      - application/json
+      description: Add repo to a user
+      operationId: add-repo-to-user
+      parameters:
+      - description: user id
+        in: path
+        name: userId
+        required: true
+        type: integer
+      - description: repo id
+        in: path
+        name: repoId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200": {}
+      summary: Add repo to a user
+      tags:
+      - users
+swagger: "2.0"

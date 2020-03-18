@@ -1,0 +1,7 @@
+[psql]
+  dbname = "boiler"
+  host   = "localhost"
+  port   = 5432
+  user   = "kakao_ent"
+  pass   = ""
+  sslmode = "disable"
