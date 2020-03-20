@@ -1,6 +1,11 @@
 package main
 
 import (
+    "os"
+    "os/signal"
+    "syscall"
+    "fmt"
+
 	"github.com/soonoo/committrs-server/app"
 	_ "github.com/soonoo/committrs-server/controllers"
 	_ "github.com/soonoo/committrs-server/models"
@@ -17,7 +22,23 @@ import (
 // @host localhost:8000
 // @BasePath /
 func main() {
+
 	server := app.Server()
 	server.Static("/swagger", "./docs")
-	server.Listen(8000)
+
+    sigs := make(chan os.Signal, 1)
+    signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
+    go func() {
+        <-sigs
+        fmt.Print("exiting ...")
+        err := server.Shutdown()
+        if err != nil {
+            fmt.Print(err.Error())
+        }
+    }()
+
+    if err := server.Listen(8001); err != nil {
+        fmt.Print(err.Error())
+        return
+    }
 }

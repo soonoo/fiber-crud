@@ -2,14 +2,16 @@ package controllers
 
 import (
 	"fmt"
+	"strconv"
+    "encoding/json"
+
 	"github.com/gofiber/fiber"
 	"github.com/soonoo/committrs-server/app"
 	"github.com/soonoo/committrs-server/db"
 	"github.com/soonoo/committrs-server/models"
 	"github.com/volatiletech/sqlboiler/boil"
 	"github.com/volatiletech/sqlboiler/queries/qm"
-	"strconv"
-	// "github.com/volatiletech/sqlboiler/queries/qm"
+    "github.com/go-redis/redis/v7"
 )
 
 type UserRequest struct {
@@ -29,6 +31,16 @@ type UserRequest struct {
 // @Router /users [get]
 func getUsers(c *fiber.Ctx) {
 	DB := db.GetDB()
+    redisClient := db.GetRedis()
+    cache, err := redisClient.Get("users").Result()
+    // fmt.Print(cache, err.Error())
+    if err != redis.Nil {
+        c.Send(cache)
+        return
+    } else {
+        fmt.Print(err.Error())
+        c.SendStatus(500)
+    }
 	users, err := models.Users().All(c.Fasthttp, DB)
 	if err != nil {
 		fmt.Print(err.Error())
@@ -36,6 +48,12 @@ func getUsers(c *fiber.Ctx) {
 		return
 	}
 
+    m, _ := json.Marshal(users)
+    r, err := redisClient.Set("users", m, 0).Result()
+    if err != nil {
+        fmt.Print(err.Error())
+    }
+    fmt.Print(r)
 	c.JSON(users)
 }
 

@@ -14,6 +14,7 @@ require (
 	github.com/githubnemo/CompileDaemon v1.0.0 // indirect
 	github.com/go-openapi/spec v0.19.7 // indirect
 	github.com/go-openapi/swag v0.19.8 // indirect
+	github.com/go-redis/redis/v7 v7.2.0
 	github.com/gofiber/fiber v1.8.2
 	github.com/gofrs/uuid v3.2.0+incompatible // indirect
 	github.com/howeyc/fsnotify v0.9.0 // indirect

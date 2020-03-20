@@ -8,10 +8,10 @@ import (
 	"database/sql"
 	_ "github.com/lib/pq"
 	"github.com/volatiletech/sqlboiler/boil"
+    "github.com/go-redis/redis/v7"
 )
 
 var DB *sql.DB
-
 func GetDB() *sql.DB {
 	if DB == nil {
 		db, err := sql.Open("postgres", "dbname=boiler user=kakao_ent sslmode=disable")
@@ -33,4 +33,18 @@ func GetDB() *sql.DB {
 	// AutoMigrate(&models.Commit{})
 
 	return DB
+}
+
+var RedisClient *redis.Client
+func GetRedis() *redis.Client {
+    if RedisClient == nil {
+        redis := redis.NewClient(&redis.Options{
+            Addr:     "localhost:6379",
+            Password: "", // no password set
+            DB:       0,  // use default DB
+        })
+        RedisClient = redis
+    }
+
+    return RedisClient
 }

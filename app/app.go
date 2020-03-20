@@ -10,6 +10,7 @@ var App *fiber.App
 func Server() *fiber.App {
 	if App == nil {
 		App = fiber.New()
+        App.Settings.Prefork = true
 		App.Use(middleware.Logger())
 	}
 	return App
